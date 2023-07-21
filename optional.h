@@ -122,6 +122,11 @@ public:
             value_ = nullptr;
         }
     }
+    template <typename... E>
+    void Emplace(E&& ... args){
+        Reset();
+        value_ = new (&data_[0]) T{std::forward<E>(args) ...};
+    }
 
 private:
     // alignas нужен для правильного выравнивания блока памяти
